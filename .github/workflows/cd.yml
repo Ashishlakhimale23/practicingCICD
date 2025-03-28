@@ -11,12 +11,12 @@ jobs :
               uses : appleboy/ssh-action@master
               with : 
                 host : 13.201.167.40
-                user : ubuntu
+                username : ubuntu
                 key : ${{secrets.PRIVATE_SECRET_KEY}}
                 port : 22
                 debug : true
                 script : | 
-                
+
                    cd practicingCICD
                    git pull 
                    cd apps/web
