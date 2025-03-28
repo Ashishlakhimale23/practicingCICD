@@ -19,7 +19,7 @@ jobs :
                     if [ -d "/home/ubuntu/practicingCICD" ]; then
                         cd practicingCICD
                     else
-                        gitclone https://github.com/Ashishlakhimale23/practicingCICD.git 
+                        git clone https://github.com/Ashishlakhimale23/practicingCICD.git 
                         cd practicingCICD
                     fi
                     git fetch origin main 
