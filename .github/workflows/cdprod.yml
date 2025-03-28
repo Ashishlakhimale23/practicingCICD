@@ -43,3 +43,5 @@ jobs:
             # Build the specific app (e.g., web)
             cd apps/web
             npm run build
+            pm2 restart web || pm2 start npm --name "web" -- run start -- -p 3000
+            pm2 save
