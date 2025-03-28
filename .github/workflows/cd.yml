@@ -8,7 +8,7 @@ jobs :
             - name : checkout the code 
               uses : actions/checkout@v2
             - name : executing the code on the vm
-              uses : appleboy/ssh-actions@master
+              uses : appleboy/ssh-action@master
               with : 
                 host : 13.201.167.40
                 user : ubuntu
