@@ -3,7 +3,7 @@ import {client} from "@repo/db/client"
 const app = express()
 
 app.get("/",(req,res)=>{
-    return res.json({message:"hello from the server"})
+    res.json({message:"hello from the server"})
 
 })
 
@@ -18,7 +18,7 @@ app.post("/signup",async(req,res)=>{
             password:password
         }
     })
-    return res.json({message:result.id})
+     res.json({message:result.id})
 
 })
 

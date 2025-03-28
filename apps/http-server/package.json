@@ -3,17 +3,18 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    
-    "dev" : "node ./dist/index.js",
-    "build" : "tsc -b"
+    "dev": "node ./dist/index.js",
+    "build": "tsc -b"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "typescript": "^5.8.2",
-    "@repo/typescript-config" : "*",
-    "@repo/db" : "*"
+    "@repo/db": "*",
+    "@repo/typescript-config": "*",
+    "@types/express": "^5.0.1",
+    "express": "^4.21.2",
+    "typescript": "^5.8.2"
   }
 }
