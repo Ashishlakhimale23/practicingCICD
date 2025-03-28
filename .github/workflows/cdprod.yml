@@ -13,7 +13,7 @@ jobs :
             - name : executing the code on the vm
               uses : appleboy/ssh-action@master
               with : 
-                host : 65.0.45.110
+                host : 13.127.78.6
                 username : ubuntu
                 key : ${{secrets.PRIVATE_SECRET_KEY}}
                 port : 22
