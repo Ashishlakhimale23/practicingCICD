@@ -5,13 +5,11 @@
   "scripts": {
     "build": "tsc -b"
   },
-  "exports":{
-
-    "./client" : {
-      "types" : "./src/index.ts",
-      "default" : "./dist/index.js"
+  "exports": {
+    "./client": {
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
     }
-
   },
   "keywords": [],
   "author": "",
@@ -19,7 +17,8 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^6.5.0",
+    "@repo/typescript-config": "*",
     "prisma": "^6.5.0",
-    "@repo/typescript-config" :"*"
+    "typescript": "^5.8.2"
   }
 }
