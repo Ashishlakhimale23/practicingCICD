@@ -7,6 +7,7 @@ app.get("/", (req: express.Request, res: express.Response) => {
     return
 });
 
+
 app.post("/signup",async(req,res)=>{
     const username = req.body.username
     const email = req.body.email
