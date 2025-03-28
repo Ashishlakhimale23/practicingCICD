@@ -1,30 +1,33 @@
-name : practicing github actions for staging branch
-on : 
-    push:
-        branches:
-            - main
-jobs : 
-    build : 
-        name : Build 
-        runs-on : ubuntu-latest
-        steps: 
-            - name : executing the code on the vm
-              uses : appleboy/ssh-action@master
-              with : 
-                host : 65.1.95.218 
-                username : ubuntu
-                key : ${{secrets.PRIVATE_SECRET_KEY}}
-                port : 22
-                script : | 
-                    if [ -d "/home/ubuntu/practicingCICD" ]; then
-                        cd practicingCICD
-                    else
-                        git clone https://github.com/Ashishlakhimale23/practicingCICD.git 
-                        cd practicingCICD
-                    fi
-                    git fetch origin main 
-                    git checkout main 
-                    git pull origin main
-                    npm install 
-                    npm run build 
-                    npm run dev
+name: Deploy Turborepo to Main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to VM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: 65.1.95.218
+          username: ubuntu
+          key: ${{ secrets.PRIVATE_SECRET_KEY }}
+          port: 22
+          script: |
+            cd /home/ubuntu
+            if [ -d "/home/ubuntu/practicingCICD" ]; then
+              cd /home/ubuntu/practicingCICD
+            else
+              git clone https://github.com/Ashishlakhimale23/practicingCICD.git /home/ubuntu/practicingCICD
+              cd /home/ubuntu/practicingCICD
+            fi
+            git fetch origin main
+            git checkout main
+            git pull origin main
+            npm ci  # Clean install for consistency
+            npm run build  # Build all Turborepo packages
+            npm run dev
