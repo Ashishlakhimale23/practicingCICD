@@ -21,6 +21,7 @@ jobs :
                 script : | 
                    git clone https://github.com/Ashishlakhimale23/practicingCICD.git
                    git checkout production
+                   
                    cd practicingCICD
                    git pull 
                    npm install 
