@@ -1,28 +1,45 @@
-name : practicing github actions for staging branch
-on : 
-    push:
-        branches:
-            - production
-jobs : 
-    build : 
-        name : Build 
-        runs-on : ubuntu-latest
-        steps: 
-            - name : checkout the code 
-              uses : actions/checkout@v2
-            - name : executing the code on the vm
-              uses : appleboy/ssh-action@master
-              with : 
-                host : 13.127.78.6
-                username : ubuntu
-                key : ${{secrets.PRIVATE_SECRET_KEY}}
-                port : 22
-                debug : true
-                script : | 
-                   git clone https://github.com/Ashishlakhimale23/practicingCICD.git
-                   cd practicingCICD
-                   git checkout production
-                   git pull origin production
-                   npm install 
-                   npm run build 
-                   npm run dev
+name: Deploy Turborepo to Production
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  build-and-deploy:
+    name: Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: production  # Ensure the production branch is checked out
+
+      - name: Deploy to VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: 13.127.78.6
+          username: ubuntu
+          key: ${{ secrets.PRIVATE_SECRET_KEY }}
+          port: 22
+          debug: true
+          script: |
+            # Navigate to or create deployment directory
+            mkdir -p ~/practicingCICD
+            cd ~/practicingCICD
+
+            # Clone or update the repo
+            if [ ! -d ".git" ]; then
+              git clone https://github.com/Ashishlakhimale23/practicingCICD.git .
+            else
+              git fetch origin
+              git checkout production
+              git pull origin production
+            fi
+
+            # Install dependencies at root (Turborepo)
+            npm ci
+
+            # Build the specific app (e.g., web)
+            cd apps/web
+            npm run build
