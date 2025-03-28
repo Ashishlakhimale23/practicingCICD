@@ -13,16 +13,15 @@ jobs :
             - name : executing the code on the vm
               uses : appleboy/ssh-action@master
               with : 
-                host : 13.201.23.174
+                host : 65.0.45.110
                 username : ubuntu
                 key : ${{secrets.PRIVATE_SECRET_KEY}}
                 port : 22
                 debug : true
                 script : | 
                    git clone https://github.com/Ashishlakhimale23/practicingCICD.git
-                   git checkout production
-                   
                    cd practicingCICD
+                   git checkout production
                    git pull 
                    npm install 
                    npm run build 
