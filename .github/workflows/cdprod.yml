@@ -1,8 +1,8 @@
-name : practicing github actions for main branch
+name : practicing github actions for staging branch
 on : 
     push:
         branches:
-            - main
+            - production
 jobs : 
     build : 
         name : Build 
@@ -20,7 +20,7 @@ jobs :
                 debug : true
                 script : | 
                    git clone https://github.com/Ashishlakhimale23/practicingCICD.git
-                   git checkout main
+                   git checkout production
                    cd practicingCICD
                    git pull 
                    npm install 
