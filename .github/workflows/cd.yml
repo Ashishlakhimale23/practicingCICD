@@ -1,0 +1,24 @@
+name : practicing github actions
+on : [push]
+jobs : 
+    build : 
+        name : Build 
+        runs-on : ubuntu-latest
+        steps: 
+            - name : checkout the code 
+              uses : actions/checkout@v2
+            - name : executing the code on the vm
+              uses : appleboy/ssh-actions@master
+              with : 
+                host : 13.201.167.40
+                user : ubuntu
+                key : ${{secrets.PRIVATE_SECRET_KEY}}
+                port : 22
+                debug : true
+                script : | 
+                   cd practicingCICD
+                   git pull 
+                   cd apps/web
+                   npm install 
+                   npm run build 
+                   npm run dev
