@@ -2,10 +2,10 @@ import express from 'express'
 import {client} from "@repo/db/client"
 const app = express()
 
-app.get("/",(req,res)=>{
-    return res.json({message:"hello from the server"})
-
-})
+app.get("/", (req: express.Request, res: express.Response) => {
+    res.json({message: "hello from the server"});
+    return
+});
 
 app.post("/signup",async(req,res)=>{
     const username = req.body.username
@@ -18,7 +18,8 @@ app.post("/signup",async(req,res)=>{
             password:password
         }
     })
-    return res.json({message:result.id})
+     res.json({message:result.id})
+     return
 
 })
 
