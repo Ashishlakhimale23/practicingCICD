@@ -13,23 +13,40 @@ jobs:
       - name: Deploy to VM
         uses: appleboy/ssh-action@master
         with:
-          host: 15.206.185.33
+          host: 65.0.122.42
           username: ubuntu
           key: ${{ secrets.PRIVATE_SECRET_KEY }}
           port: 22
+          debug: true  # Enable debug logs
           script: |
-            if [ -d practicingCICD ]; then
-              cd practicingCICD 
-            else 
-              git clone https://github.com/Ashishlakhimale23/practicingCICD.git
-              cd practicingCICD
+            set -e  # Exit on any error
+            echo "Starting deployment..."
+            cd /home/ubuntu
+            if [ -d "/home/ubuntu/practicingCICD" ]; then
+              echo "Directory exists, updating..."
+              cd /home/ubuntu/practicingCICD
+            else
+              echo "Cloning repo..."
+              git clone https://github.com/Ashishlakhimale23/practicingCICD.git /home/ubuntu/practicingCICD
+              cd /home/ubuntu/practicingCICD
             fi
+            echo "Fetching and pulling main branch..."
             git fetch origin main
             git checkout main
             git pull origin main
-            npm i  # Clean install for consistency
-            npm run build  # Build all Turborepo packages
-            cd ..
-            cd pm2config
-            pm2 restart ecosystem.config.js || pm2 start ecosystem.config.js
+            echo "Installing dependencies..."
+            rm -rf node_modules package-lock.json
+            npm i  # Cleaner install
+            echo "Building Turborepo..."
+            npm run build  # Explicit Turborepo build
+            echo "Deploying with PM2..."
+            if [ -d "/home/ubuntu/pm2config" ]; then
+              cd /home/ubuntu/pm2config
+              pm2 restart ecosystem.config.js || pm2 start ecosystem.config.js
+              pm2 save
+            else
+              echo "Error: /home/ubuntu/pm2config not found"
+              exit 1
+            fi
+            echo "Deployment complete"
             exit 0
