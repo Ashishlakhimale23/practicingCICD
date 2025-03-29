@@ -13,7 +13,7 @@ jobs:
       - name: Deploy to VM
         uses: appleboy/ssh-action@master
         with:
-          host: 13.232.235.59
+          host: 15.206.185.33
           username: ubuntu
           key: ${{ secrets.PRIVATE_SECRET_KEY }}
           port: 22
@@ -24,4 +24,7 @@ jobs:
             git pull origin main
             npm i  # Clean install for consistency
             npm run build  # Build all Turborepo packages
-            npm run dev
+            cd ..
+            cd pm2conif
+            pm2 restart ecosystem.config.js || pm2 start ecosystem.config.js
+            exit 0
