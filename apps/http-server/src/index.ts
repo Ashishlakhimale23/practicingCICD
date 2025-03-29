@@ -33,15 +33,22 @@ app.get("/signin",async (req,res)=>{
         }
     })
 
+
+
     if(!result){
         res.json({message:"no user exists"})
         return 
     }
 
-    res.json({message:"user exists"})
-    return
+    if (result.password == password) {
+        res.json({ message: "user exists" })
+        return
+    }
+    
 
 
+
+    
 
 })
 
