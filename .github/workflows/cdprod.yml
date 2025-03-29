@@ -25,6 +25,6 @@ jobs:
             npm i  # Clean install for consistency
             npm run build  # Build all Turborepo packages
             cd ..
-            cd pm2conif
+            cd pm2config
             pm2 restart ecosystem.config.js || pm2 start ecosystem.config.js
             exit 0
