@@ -18,7 +18,7 @@ jobs:
           key: ${{ secrets.PRIVATE_SECRET_KEY }}
           port: 22
           script: |
-            if[ -d practicingCICD ];then
+            if[ -d practicingCICD ]; then
               cd practicingCICD 
             else 
               git clone https://github.com/Ashishlakhimale23/practicingCICD.git
