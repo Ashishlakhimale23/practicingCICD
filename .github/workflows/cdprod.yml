@@ -13,18 +13,12 @@ jobs:
       - name: Deploy to VM
         uses: appleboy/ssh-action@master
         with:
-          host: 13.201.19.199
+          host: 13.232.235.59
           username: ubuntu
           key: ${{ secrets.PRIVATE_SECRET_KEY }}
           port: 22
           script: |
-            cd /home/ubuntu
-            if [ -d "/home/ubuntu/practicingCICD" ]; then
-              cd /home/ubuntu/practicingCICD
-            else
-              git clone https://github.com/Ashishlakhimale23/practicingCICD.git /home/ubuntu/practicingCICD
-              cd /home/ubuntu/practicingCICD
-            fi
+            cd practicingCICD
             git fetch origin main
             git checkout main
             git pull origin main

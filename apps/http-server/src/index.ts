@@ -22,6 +22,29 @@ app.post("/signup",async(req,res)=>{
 
 })
 
+app.get("/signin",async (req,res)=>{
+    const username = req.body.username
+    const email = req.body.email
+    const password = req.body.password
+
+    const result = await client.user.findFirst({
+        where:{
+            username:username
+        }
+    })
+
+    if(!result){
+        res.json({message:"no user exists"})
+        return 
+    }
+
+    res.json({message:"user exists"})
+    return
+
+
+
+})
+
 app.listen(8000,()=>{
     console.log("server started..")
 })
